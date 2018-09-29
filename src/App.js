@@ -46,12 +46,15 @@ class App extends Component {
         position: {lat: venue.location.lat, 
           lng: venue.location.lng},
         map: map,
-        title: venue.name
+        title: venue.name,
+        animation: window.google.maps.Animation.Drop
       });
       marker.addListener('click', function() {
         infowindow.setContent(contentString)
         infowindow.open(map, marker)
-    })    
+      })
+      /*marker.addListener('mouseover', function() {
+          */
   })
 }
   render() {
