@@ -7,42 +7,53 @@ class App extends Component {
     venues: []
   }
   componentDidMount() {
-    this.loadMap()
     this.getVenues()
   }
   loadMap = () => {
     loadScript("https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyCaPkvbdf1BBoa6KSHQY3GWqcPGdEaa_TE&callback=initMap")
       window.initMap = this.initMap;
   }
-  initMap = () => {
-    const map = new window.google.maps.Map(document.getElementById('map'), {
-      zoom: 8,
-      center: {lat: 40.6971494, lng: -74.2598655}
-    });
-  }
-  getVenues = () => {
+   getVenues = () => {
     const endPoint = "https://api.foursquare.com/v2/venues/search?"
-    const parameters = {
+    let parameters = {
       client_id: "GLHT2IK1VEODEMEQP1CQPZ2KOYHH3EJKWMKBC0IFLRPWLXY5",
       client_secret: "LNQXGGOTY4JOOLIETW3CHG0SPJN3HBIVZYCE0AS54WFRG3FH",
       categoryId: "52e81612bcbc57f1066b79ed",
-      query: "louise",
+      query: "",
       ll: "40.6,-74.2",
       v: "20182809"
     }
     axios.get(endPoint + new URLSearchParams(parameters))
-    .then(response => {
-      console.log(response)
-      /*this.setState({
-        venues: response.data.response.groups[0].items
-      })*/
-    })
+      .then(response => {
+      /*console.log(response.data.response.venues)*/
+        this.setState({
+          venues: response.data.response.venues
+        }, this.loadMap())
+      })
     .catch(error => {
       console.log("Error!" + error)
     })
   }
-
-
+  initMap = () => {
+    var map = new window.google.maps.Map(document.getElementById('map'), {
+      zoom: 8,
+      center: {lat: 40.6971494, lng: -74.2598655}
+    });
+    var infowindow = new window.google.maps.InfoWindow()
+    this.state.venues.map(venue => {
+      var contentString = `${venue.name}`
+      var marker = new window.google.maps.Marker({
+        position: {lat: venue.location.lat, 
+          lng: venue.location.lng},
+        map: map,
+        title: venue.name
+      });
+      marker.addListener('click', function() {
+        infowindow.setContent(contentString)
+        infowindow.open(map, marker)
+    })    
+  })
+}
   render() {
     return (
       <div className="App">
