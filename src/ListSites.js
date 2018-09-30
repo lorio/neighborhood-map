@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import './App.css';
 
-class VenuesList extends Component {
+class ListSites extends Component {
+  static propTypes = {
+    sites: PropTypes.array.isRequired
+  }
   state = {
-    query: '',
-    venues: venues
+    query: ''
+    /*venues: this.props*/
   }
 
   render() {
+    console.log(this.props)
     return (
       <div className="sidebar">
         <div className="search-venues-bar">
@@ -16,16 +21,19 @@ class VenuesList extends Component {
                   type="text" 
                   placeholder="Find a Sculpture"
                   value={undefined}
-                  onChange={(event) => this.updateQuery(
-                    event.target.value)}
+                  /*onChange={(event) => this.updateQuery(
+                    event.target.value)}*/
                 />
                 </div>
               </div>
               <ul className="venues-list"></ul>
                 {
-                  this.state.venues.map(venue => {
-                    return <li key={venue.id}>{props.venue.name}</li>
-                  })
+                 this.props.sites.map(site => (
+                    <li key={
+                      this.site.venue.id}>{
+                      this.site.venue.name}
+                      </li>
+                  ))
                   
                 }
             </div>
@@ -34,4 +42,4 @@ class VenuesList extends Component {
   }
 }
 
-export default VenuesList
+export default ListSites

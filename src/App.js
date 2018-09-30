@@ -1,19 +1,25 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import './App.css';
+import ListSites from './ListSites';
 
 class App extends Component {
   state = {
-    venues: []
+    venues: [],
+    sites: [],
   }
   componentDidMount() {
-    this.getVenues()
+    this.getVenues();
   }
   loadMap = () => {
     loadScript("https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyCaPkvbdf1BBoa6KSHQY3GWqcPGdEaa_TE&callback=initMap")
       window.initMap = this.initMap;
   }
-   getVenues = () => {
+  getSites = this.state.venues.map(site => {
+    this.getVenues();
+    return this.sites
+  })
+   getVenues = (sites) => {
     const endPoint = "https://api.foursquare.com/v2/venues/search?"
     let parameters = {
       client_id: "GLHT2IK1VEODEMEQP1CQPZ2KOYHH3EJKWMKBC0IFLRPWLXY5",
@@ -28,7 +34,7 @@ class App extends Component {
       /*console.log(response.data.response.venues)*/
         this.setState({
           venues: response.data.response.venues
-        }, this.loadMap())
+        }, this.loadMap(), this.loadList())
       })
     .catch(error => {
       console.log("Error!" + error)
@@ -40,21 +46,20 @@ class App extends Component {
       center: {lat: 40.6971494, lng: -74.2598655}
     });
     var infowindow = new window.google.maps.InfoWindow()
-    this.state.venues.map(venue => {
-      var contentString = `${venue.name}`
+    this.state.venues.map(site => {
+      var contentString = `${site.venue.name}`
       var marker = new window.google.maps.Marker({
-        position: {lat: venue.location.lat, 
-          lng: venue.location.lng},
+        position: {lat: site.venue.location.lat, 
+          lng: site.venue.location.lng},
         map: map,
-        title: venue.name,
+        title: site.venue.name,
         animation: window.google.maps.Animation.Drop
       });
       marker.addListener('click', function() {
         infowindow.setContent(contentString)
         infowindow.open(map, marker)
       })
-      /*marker.addListener('mouseover', function() {
-          */
+      /*marker.addListener('mouseover', function() {*/
   })
 }
   render() {
@@ -62,9 +67,15 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <nav>
-          <h1 className="App-title">Neighborhood Map</h1>
+          <h1 className="App-title">NYC Outdoor Sculptures</h1>
           </nav>
         </header>
+        <div className="sidebar">
+          <ListSites 
+            sites={this.state.sites}
+            getSites={this.getSites} 
+          />
+        </div>
         <main>
           <div id="map"></div>
         </main>
