@@ -70,15 +70,20 @@ class App extends Component {
           <h1 className="App-title">NYC Outdoor Sculptures</h1>
           </nav>
         </header>
-        <div className="sidebar">
-          <ListSites 
-            sites={this.state.sites}
-            getSites={this.getSites} 
-          />
+        <div className="container">
+          <div className="sidebar">
+            <ListSites 
+              sites={this.state.sites}
+              getSites={this.getSites} 
+            />
+          </div>
+          <main className="main-content">
+            <div id="map"></div>
+          </main>
         </div>
-        <main>
-          <div id="map"></div>
-        </main>
+        <footer className="site-footer">
+          <cite> App by Lorio. Data by foursquare.</cite>
+        </footer>
       </div>
     );
   }
