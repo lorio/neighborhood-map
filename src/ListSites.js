@@ -4,12 +4,18 @@ import './App.css';
 
 class ListSites extends Component {
   static propTypes = {
-    sites: PropTypes.array.isRequired
+    venues: PropTypes.array.isRequired
   }
-  state = {
-    query: ''
-    /*venues: this.props*/
+  constructor(props) {
+    super(props);
+    this.state = {
+      query: '',
+      venues: {getVenues, venues}
+    }
   }
+  /*onInputChange(event) {
+    console.log(event.target.value);
+  }*/
 
   render() {
     console.log(this.props)
@@ -20,18 +26,18 @@ class ListSites extends Component {
                 <input 
                   type="text" 
                   placeholder="Find a Sculpture"
-                  value={undefined}
-                  /*onChange={(event) => this.updateQuery(
-                    event.target.value)}*/
+                  value={this.state.query}
+                  onChange={event => this.setState({
+                    query: event.target.value})}
                 />
                 </div>
               </div>
               <ul className="venues-list"></ul>
                 {
-                 this.props.sites.map(site => (
+                 this.props.venues.map((venue) => (
                     <li key={
-                      this.site.venue.id}>{
-                      this.site.venue.name}
+                      this.props.venue.id}>{
+                      this.props.venue.name}
                       </li>
                   ))
                   

@@ -6,35 +6,37 @@ import ListSites from './ListSites';
 class App extends Component {
   state = {
     venues: [],
-    sites: [],
+    
   }
   componentDidMount() {
     this.getVenues();
+    this.loadMap();
   }
   loadMap = () => {
     loadScript("https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyCaPkvbdf1BBoa6KSHQY3GWqcPGdEaa_TE&callback=initMap")
       window.initMap = this.initMap;
   }
-  getSites = this.state.venues.map(site => {
-    this.getVenues();
-    return this.sites
-  })
-   getVenues = (sites) => {
+  /*loadMarkers = () =>*/
+  /*loadList = (venues) => {
+    venues.push venue
+    
+  })*/
+   getVenues = (venues) => {
     const endPoint = "https://api.foursquare.com/v2/venues/search?"
     let parameters = {
       client_id: "GLHT2IK1VEODEMEQP1CQPZ2KOYHH3EJKWMKBC0IFLRPWLXY5",
       client_secret: "LNQXGGOTY4JOOLIETW3CHG0SPJN3HBIVZYCE0AS54WFRG3FH",
       categoryId: "52e81612bcbc57f1066b79ed",
-      query: "",
+      query: "indiana",
       ll: "40.6,-74.2",
       v: "20182809"
     }
     axios.get(endPoint + new URLSearchParams(parameters))
       .then(response => {
-      /*console.log(response.data.response.venues)*/
+      console.log(response.data.response.venues)
         this.setState({
           venues: response.data.response.venues
-        }, this.loadMap(), this.loadList())
+        }, this.loadMap())
       })
     .catch(error => {
       console.log("Error!" + error)
@@ -46,13 +48,14 @@ class App extends Component {
       center: {lat: 40.6971494, lng: -74.2598655}
     });
     var infowindow = new window.google.maps.InfoWindow()
-    this.state.venues.map(site => {
-      var contentString = `${site.venue.name}`
+    this.state.venues.forEach((venue) => {
+      var contentString = `${venue.name}`
       var marker = new window.google.maps.Marker({
-        position: {lat: site.venue.location.lat, 
-          lng: site.venue.location.lng},
+        position: {lat: venue.location.lat, 
+          lng: venue.location.lng},
+        id: venue.id,
         map: map,
-        title: site.venue.name,
+        title: venue.name,
         animation: window.google.maps.Animation.Drop
       });
       marker.addListener('click', function() {
@@ -73,8 +76,9 @@ class App extends Component {
         <div className="container">
           <div className="sidebar">
             <ListSites 
-              sites={this.state.sites}
-              getSites={this.getSites} 
+              venues={this.state.venues}
+              getVenues={this.getVenues}
+              venue={this.state.venue} 
             />
           </div>
           <main className="main-content">
