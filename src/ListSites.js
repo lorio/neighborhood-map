@@ -18,7 +18,7 @@ class ListSites extends Component {
   }*/
 
   render() {
-    const { venue } = this.props;
+    const { venues } = this.props;
     console.log(this.props)
     return (
       <div className="sidebar">
@@ -35,13 +35,12 @@ class ListSites extends Component {
               </div>
               <ul className="venues-list"></ul>
                 {
-                 this.state.venues.map((venue) => (
+                 venues.map(venue => (
                     <li key={
                       venue.id}>{
                       venue.name}
                       </li>
-                  ))
-                  
+                  ))                  
                 }
             </div>
 
