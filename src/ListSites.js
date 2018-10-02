@@ -10,14 +10,15 @@ class ListSites extends Component {
     super(props);
     this.state = {
       query: '',
-      venues: {getVenues, venues}
-    }
+      venues: this.props.venues
+    };
   }
   /*onInputChange(event) {
     console.log(event.target.value);
   }*/
 
   render() {
+    const { venue } = this.props;
     console.log(this.props)
     return (
       <div className="sidebar">
@@ -34,10 +35,10 @@ class ListSites extends Component {
               </div>
               <ul className="venues-list"></ul>
                 {
-                 this.props.venues.map((venue) => (
+                 this.state.venues.map((venue) => (
                     <li key={
-                      this.props.venue.id}>{
-                      this.props.venue.name}
+                      venue.id}>{
+                      venue.name}
                       </li>
                   ))
                   
