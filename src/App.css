@@ -61,9 +61,11 @@ html, body, .sidebar, .root {
   height: 100%;
 }
 .search-venues-bar {
+order: 1;
 
+justify-content: center;
  /* position: fixed;*/
-  /*width: 100%;*/
+  width: 100%;
   /*top: 0;
   left: 0;
   z-index: 5;*/
@@ -82,16 +84,25 @@ input {
   text-align: center;
 }
 .search-venues-input-wrapper {
-  flex: 1;
+  /*flex: 1;*/
+  
   padding: 6px;
   background: #4fa0eb;
 }
-.venues-list {
+ul.venues-list {
   display: flex;
+  order: 2;
   list-style-type: none;
-  flex-wrap: wrap;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  padding-top: 20px;
 }
 .venues-list li {
+
+  margin-left: -20em;
+  padding-right: 10px;
+  text-align: left;
+  padding: 10px;
 
 }
 .site-footer {

@@ -27,7 +27,7 @@ class App extends Component {
       client_id: "GLHT2IK1VEODEMEQP1CQPZ2KOYHH3EJKWMKBC0IFLRPWLXY5",
       client_secret: "LNQXGGOTY4JOOLIETW3CHG0SPJN3HBIVZYCE0AS54WFRG3FH",
       categoryId: "52e81612bcbc57f1066b79ed",
-      query: "indiana",
+      query: "",
       ll: "40.6,-74.2",
       v: "20182809"
     }
@@ -74,13 +74,11 @@ class App extends Component {
           </nav>
         </header>
         <div className="container">
-          <div className="sidebar">
-            <ListSites 
-              venues={this.state.venues}
-              getVenues={this.getVenues}
-              venue={this.state.venue} 
-            />
-          </div>
+          <ListSites 
+            venues={this.state.venues}
+            getVenues={this.getVenues}
+            venue={this.state.venue} 
+          />
           <main className="main-content">
             <div id="map"></div>
           </main>

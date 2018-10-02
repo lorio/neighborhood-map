@@ -21,29 +21,29 @@ class ListSites extends Component {
     const { venues } = this.props;
     console.log(this.props)
     return (
-      <div className="sidebar">
+      <div className="sidebar">     
         <div className="search-venues-bar">
           <div className="search-venues-input-wrapper">
-                <input 
-                  type="text" 
-                  placeholder="Find a Sculpture"
-                  value={this.state.query}
-                  onChange={event => this.setState({
-                    query: event.target.value})}
-                />
-                </div>
-              </div>
-              <ul className="venues-list"></ul>
-                {
-                 venues.map(venue => (
-                    <li key={
-                      venue.id}>{
-                      venue.name}
-                      </li>
-                  ))                  
-                }
+            <input 
+              type="text" 
+              placeholder="Find a Sculpture"
+              value={this.state.query}
+              onChange={event => this.setState({
+                query: event.target.value})}
+            />
             </div>
-
+          </div>
+          <ul className="venues-list">
+            {
+             venues.map(venue => (
+                <li key={
+                  venue.id}>{
+                  venue.name}
+                  </li>
+              ))                  
+            }
+          </ul>
+         </div>   
       )
   }
 }
