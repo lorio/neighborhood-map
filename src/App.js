@@ -10,7 +10,7 @@ class App extends Component {
   }
   componentDidMount() {
     this.getVenues();
-    this.loadMap();
+    
   }
   loadMap = () => {
     loadScript("https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyCaPkvbdf1BBoa6KSHQY3GWqcPGdEaa_TE&callback=initMap")
@@ -35,7 +35,7 @@ class App extends Component {
       .then(response => {
       console.log(response.data.response.venues)
         this.setState({
-          venues: response.data.response.venues
+          venues: response.data.response.venues    
         }, this.loadMap())
       })
     .catch(error => {
