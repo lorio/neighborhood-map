@@ -6,12 +6,28 @@ import ListSites from './ListSites';
 class App extends Component {
   state = {
     venues: [],
-    
+    markers: []
   }
   componentDidMount() {
     this.getVenues();
     
   }
+  clearMarkers = () => {
+    this.setState({ markers: []})
+  }
+/*mapVenue() {
+  console.log('mapping!');
+}*/
+/*  mapVenue = (venue, e) => {
+    if(venue === e.target)
+    console.log(e.target.innerHTML)*/
+    
+    /*let marker = this.props.markers.find(
+        marker => marker.id ===  venue.id)*/
+    /*this.state.venues.forEach((venue) => {
+      marker*/
+   /* console.log('found')
+  }*/
   loadMap = () => {
     loadScript("https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyCaPkvbdf1BBoa6KSHQY3GWqcPGdEaa_TE&callback=initMap")
       window.initMap = this.initMap;
@@ -33,7 +49,6 @@ class App extends Component {
     }
     axios.get(endPoint + new URLSearchParams(parameters))
       .then(response => {
-      console.log(response.data.response.venues)
         this.setState({
           venues: response.data.response.venues    
         }, this.loadMap())
@@ -77,7 +92,9 @@ class App extends Component {
           <ListSites 
             venues={this.state.venues}
             getVenues={this.getVenues}
-            venue={this.state.venue} 
+            venue={this.state.venue}
+            initMap={this.initMap}
+
           />
           <main className="main-content">
             <div id="map"></div>

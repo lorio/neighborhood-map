@@ -4,22 +4,37 @@ import './App.css';
 
 class ListSites extends Component {
   static propTypes = {
-    venues: PropTypes.array.isRequired
+    venues: PropTypes.array.isRequired,
+    venue: PropTypes.object.isRequired
   }
   constructor(props) {
     super(props);
     this.state = {
       query: '',
-      venues: this.props.venues
+      venues: this.props.venues,
+      venue: this.props.venue,
+      markers: []
     };
   }
+  onClickedVenue = (query) => {
+  console.log('mapping!');
+    /*const newMap = this.setState(prevState =>)*/
+    query = this.venue
+    this.props.getVenues()
+    this.props.initMap()
+    let marker = this.query
+  /*  marker.props !== this.props ?
+      marker.setMap(null) : marker.setMap(map)*/
+  /*let query = this.props.markers.find(marker => marker.id === id)*/
+}
   /*onInputChange(event) {
     console.log(event.target.value);
   }*/
 
   render() {
-    const { venues } = this.props;
-    console.log(this.props)
+
+    const { venues, venue } = this.props;
+    /*console.log(this.props)*/
     return (
       <div className="sidebar">     
         <div className="search-venues-bar">
@@ -36,9 +51,9 @@ class ListSites extends Component {
           <ul className="venues-list">
             {
              venues.map(venue => (
-                <li key={
-                  venue.id}>{
-                  venue.name}
+                <li key={venue.id}
+                onClick={this.onClickedVenue}
+                >{venue.name}
                   </li>
               ))                  
             }
