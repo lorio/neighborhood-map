@@ -5,7 +5,8 @@ import './App.css';
 class ListSites extends Component {
   static propTypes = {
     venues: PropTypes.array.isRequired,
-    venue: PropTypes.object.isRequired
+    venue: PropTypes.object.isRequired,
+    getVenues: PropTypes.func.isRequired
   }
   constructor(props) {
     super(props);
@@ -13,16 +14,21 @@ class ListSites extends Component {
       query: '',
       venues: this.props.venues,
       venue: this.props.venue,
-      markers: []
+      markers: [],
+      marker: this.props.marker,
+      
     };
+    this.onClickedVenue = this.onClickedVenue.bind(this);
   }
-  onClickedVenue = (query) => {
+  onClickedVenue = (e, venue, marker) => {
   console.log('mapping!');
+    /*const map = new window.google.Map*/
     /*const newMap = this.setState(prevState =>)*/
-    query = this.venue
-    this.props.getVenues()
-    this.props.initMap()
-    let marker = this.query
+    /*query = this.venue*/
+    /*let marker = this.query*/
+    if(this.venue !== e.target.value) {
+      marker.setState({marker: marker})
+    } 
   /*  marker.props !== this.props ?
       marker.setMap(null) : marker.setMap(map)*/
   /*let query = this.props.markers.find(marker => marker.id === id)*/
@@ -32,7 +38,6 @@ class ListSites extends Component {
   }*/
 
   render() {
-
     const { venues, venue } = this.props;
     /*console.log(this.props)*/
     return (

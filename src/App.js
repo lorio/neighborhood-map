@@ -10,7 +10,6 @@ class App extends Component {
   }
   componentDidMount() {
     this.getVenues();
-    
   }
   clearMarkers = () => {
     this.setState({ markers: []})
@@ -35,15 +34,18 @@ class App extends Component {
   /*loadMarkers = () =>*/
   /*loadList = (venues) => {
     venues.push venue
-    
   })*/
+  /*const get = (p, o) =>
+  p.reduce((xs, x) => (xs && xs[x]) ? xs[x] : null, o)
+  console.log(get(['map','markers', 0,], props ))
+*/
    getVenues = (venues) => {
     const endPoint = "https://api.foursquare.com/v2/venues/search?"
     let parameters = {
       client_id: "GLHT2IK1VEODEMEQP1CQPZ2KOYHH3EJKWMKBC0IFLRPWLXY5",
       client_secret: "LNQXGGOTY4JOOLIETW3CHG0SPJN3HBIVZYCE0AS54WFRG3FH",
       categoryId: "52e81612bcbc57f1066b79ed",
-      query: "",
+      query: "",    
       ll: "40.6,-74.2",
       v: "20182809"
     }
@@ -62,6 +64,7 @@ class App extends Component {
       zoom: 8,
       center: {lat: 40.6971494, lng: -74.2598655}
     });
+    var markers = []
     var infowindow = new window.google.maps.InfoWindow()
     this.state.venues.forEach((venue) => {
       var contentString = `${venue.name}`
@@ -71,15 +74,17 @@ class App extends Component {
         id: venue.id,
         map: map,
         title: venue.name,
-        animation: window.google.maps.Animation.Drop
+        animation: window.google.maps.Animation.DROP,
+        isVisible: true
       });
       marker.addListener('click', function() {
         infowindow.setContent(contentString)
         infowindow.open(map, marker)
-      })
-      /*marker.addListener('mouseover', function() {*/
+      });
+      /*marker.addListener('mouseover', function() {*/markers.push(marker);
   })
-}
+} 
+
   render() {
     return (
       <div className="App">
@@ -93,8 +98,8 @@ class App extends Component {
             venues={this.state.venues}
             getVenues={this.getVenues}
             venue={this.state.venue}
-            initMap={this.initMap}
-
+            marker={this.props.marker}
+            map={this.state.map}
           />
           <main className="main-content">
             <div id="map"></div>
