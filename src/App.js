@@ -14,19 +14,7 @@ class App extends Component {
   clearMarkers = () => {
     this.setState({ markers: []})
   }
-/*mapVenue() {
-  console.log('mapping!');
-}*/
-/*  mapVenue = (venue, e) => {
-    if(venue === e.target)
-    console.log(e.target.innerHTML)*/
-    
-    /*let marker = this.props.markers.find(
-        marker => marker.id ===  venue.id)*/
-    /*this.state.venues.forEach((venue) => {
-      marker*/
-   /* console.log('found')
-  }*/
+  
   loadMap = () => {
     loadScript("https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyCaPkvbdf1BBoa6KSHQY3GWqcPGdEaa_TE&callback=initMap")
       window.initMap = this.initMap;
@@ -36,23 +24,13 @@ class App extends Component {
     /*let i = markers.indexOf(this.venue)*/
     const list = document.querySelector('.venues-list')
     const item = list.children
-    markers.find(item && item.id[ venue])
+    markers.find(item && item.id[ e.target])
    
     if (venue && venue.id === this.item && item.id)
       console.log('match!')
       toggleBounce = window.google.maps.setAnimation
-        this.marker.addListener('click', toggleBounce) 
-        
+        this.marker.addListener('click', toggleBounce)      
       };
-      
-  /*loadMarkers = () =>*/
-  /*loadList = (venues) => {
-    venues.push venue
-  })*/
-  /*const get = (p, o) =>
-  p.reduce((xs, x) => (xs && xs[x]) ? xs[x] : null, o)
-  console.log(get(['map','markers', 0,], props ))
-*/
    getVenues = (venues) => {
     const endPoint = "https://api.foursquare.com/v2/venues/search?"
     let parameters = {
