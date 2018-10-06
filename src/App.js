@@ -14,22 +14,22 @@ class App extends Component {
   clearMarkers = () => {
     this.setState({ markers: []})
   }
-  
+
   loadMap = () => {
     loadScript("https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyCaPkvbdf1BBoa6KSHQY3GWqcPGdEaa_TE&callback=initMap")
       window.initMap = this.initMap;
   }
 
-  onClickedVenue = (e, venue, marker,markers, toggleBounce) => {
-    /*let i = markers.indexOf(this.venue)*/
-    const list = document.querySelector('.venues-list')
+  onClickedVenue = (id) => {
+    /*let i = markers.indexOf(this.venue)*/console.log('hi')
+   /* const list = document.querySelector('.venues-list')
     const item = list.children
     markers.find(item && item.id[ e.target])
    
     if (venue && venue.id === this.item && item.id)
       console.log('match!')
       toggleBounce = window.google.maps.setAnimation
-        this.marker.addListener('click', toggleBounce)      
+        this.marker.addListener('click', toggleBounce) */     
       };
    getVenues = (venues) => {
     const endPoint = "https://api.foursquare.com/v2/venues/search?"
@@ -71,14 +71,32 @@ class App extends Component {
       marker.addListener('click', function() {
         infowindow.setContent(contentString)
         infowindow.open(map, marker)
+        toggleBounce(this)
       });
-      function toggleBounce() {
+      function toggleBounce(marker) {
+        console.log(marker)
+        if (marker.getAnimation() !== null) {
+          marker.setAnimation(null);
+        } else {
+          marker.setAnimation(window.google.maps.Animation.BOUNCE);
+          setTimeout (function(){
+            marker.setAnimation(null);
+          }, 1000);
+        } 
+      }
+   /* marker.addListener('click', function(e) {
+        infowindow.setContent(contentString);
+        infowindow.open(map, marker);
+        toggleBounce(e.target);
+      });
+
+      function toggleBounce(marker) {
         if (marker.getAnimation() !== null) {
           marker.setAnimation(null);
         } else {
           marker.setAnimation(window.google.maps.Animation.BOUNCE);
         } 
-      }
+      }*/
       markers.push(marker)
     }) 
   }

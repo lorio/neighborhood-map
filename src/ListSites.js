@@ -40,7 +40,9 @@ class ListSites extends Component {
             {
              venues.map(venue => (
                 <li key={venue.id}
-                onClick={this.onClickedVenue}
+                id={venue.id}
+                onClick={(e)=>this.props.onClickedVenue(
+                  e.target.id)}
                 >{venue.name}
                   </li>
               ))                  
