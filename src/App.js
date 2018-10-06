@@ -31,6 +31,20 @@ class App extends Component {
     loadScript("https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyCaPkvbdf1BBoa6KSHQY3GWqcPGdEaa_TE&callback=initMap")
       window.initMap = this.initMap;
   }
+
+  onClickedVenue = (e, venue, marker,markers, toggleBounce) => {
+    /*let i = markers.indexOf(this.venue)*/
+    const list = document.querySelector('.venues-list')
+    const item = list.children
+    markers.find(item && item.id[ venue])
+   
+    if (venue && venue.id === this.item && item.id)
+      console.log('match!')
+      toggleBounce = window.google.maps.setAnimation
+        this.marker.addListener('click', toggleBounce) 
+        
+      };
+      
   /*loadMarkers = () =>*/
   /*loadList = (venues) => {
     venues.push venue
@@ -61,7 +75,7 @@ class App extends Component {
   }
   initMap = () => {
     var map = new window.google.maps.Map(document.getElementById('map'), {
-      zoom: 8,
+      zoom: 10,
       center: {lat: 40.6971494, lng: -74.2598655}
     });
     var markers = []
@@ -74,17 +88,22 @@ class App extends Component {
         id: venue.id,
         map: map,
         title: venue.name,
-        animation: window.google.maps.Animation.DROP,
-        isVisible: true
+        animation: window.google.maps.Animation.DROP
       });
       marker.addListener('click', function() {
         infowindow.setContent(contentString)
         infowindow.open(map, marker)
       });
-      /*marker.addListener('mouseover', function() {*/markers.push(marker);
-  })
-} 
-
+      function toggleBounce() {
+        if (marker.getAnimation() !== null) {
+          marker.setAnimation(null);
+        } else {
+          marker.setAnimation(window.google.maps.Animation.BOUNCE);
+        } 
+      }
+      markers.push(marker)
+    }) 
+  }
   render() {
     return (
       <div className="App">
@@ -98,8 +117,10 @@ class App extends Component {
             venues={this.state.venues}
             getVenues={this.getVenues}
             venue={this.state.venue}
-            marker={this.props.marker}
+            markers={this.state.markers}
+            marker={this.state.marker}
             map={this.state.map}
+            onClickedVenue={this.onClickedVenue}
           />
           <main className="main-content">
             <div id="map"></div>

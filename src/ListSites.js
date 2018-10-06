@@ -18,28 +18,38 @@ class ListSites extends Component {
       marker: this.props.marker,
       
     };
-    this.onClickedVenue = this.onClickedVenue.bind(this);
+    /*this.props.getVenues()*/
+    /*this.onClickedVenue = this.onClickedVenue.bind(this);*/
   }
-  onClickedVenue = (e, venue, marker) => {
-  console.log('mapping!');
+ /* onClickedVenue = (e, venue, marker, id) => {*/
+    
+  
     /*const map = new window.google.Map*/
     /*const newMap = this.setState(prevState =>)*/
+    /*function toggleBounce() {
+        if (marker.getAnimation() !== null) {
+          marker.setAnimation(null);
+        } else {
+          marker.setAnimation(window.google.maps.Animation.BOUNCE);
+        }
+      }*/
     /*query = this.venue*/
     /*let marker = this.query*/
-    if(this.venue !== e.target.value) {
-      marker.setState({marker: marker})
-    } 
+    /*if(this.venue !== e.target.value) {
+      console.log('mapped!')*/
+      /*marker.addListener('click', toggleBounce);*/
+   /* } */
   /*  marker.props !== this.props ?
       marker.setMap(null) : marker.setMap(map)*/
   /*let query = this.props.markers.find(marker => marker.id === id)*/
-}
+/*}*/
   /*onInputChange(event) {
     console.log(event.target.value);
   }*/
 
   render() {
-    const { venues, venue } = this.props;
-    /*console.log(this.props)*/
+    const { venues, venue, markers } = this.props;
+    
     return (
       <div className="sidebar">     
         <div className="search-venues-bar">
