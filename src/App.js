@@ -20,17 +20,20 @@ class App extends Component {
       window.initMap = this.initMap;
   }
 
-  onClickedVenue = (id) => {
-    /*let i = markers.indexOf(this.venue)*/console.log('hi')
-   /* const list = document.querySelector('.venues-list')
-    const item = list.children
-    markers.find(item && item.id[ e.target])
-   
-    if (venue && venue.id === this.item && item.id)
-      console.log('match!')
-      toggleBounce = window.google.maps.setAnimation
-        this.marker.addListener('click', toggleBounce) */     
-      };
+  onClickedVenue = ((e, venue, id, toggleBounce) => {
+    const list = document.querySelector('.venues-list')
+    const items = Array.from(list.children)
+    const item = { id:  id }
+    const marker = Object.assign({
+      id: id},  item);
+
+      items.map(item => {
+        return /*console.log(e)*/marker
+      })
+      /*toggleBounce = window.google.maps.setAnimation*/
+       /* marker.addListener('click', toggleBounce) */
+        /*toggleBounce(marker)   */ 
+   })
    getVenues = (venues) => {
     const endPoint = "https://api.foursquare.com/v2/venues/search?"
     let parameters = {
@@ -69,6 +72,8 @@ class App extends Component {
         animation: window.google.maps.Animation.DROP
       });
       marker.addListener('click', function() {
+        map.setCenter(marker.position)
+        map.setZoom(15)
         infowindow.setContent(contentString)
         infowindow.open(map, marker)
         toggleBounce(this)
@@ -84,21 +89,10 @@ class App extends Component {
           }, 1000);
         } 
       }
-   /* marker.addListener('click', function(e) {
-        infowindow.setContent(contentString);
-        infowindow.open(map, marker);
-        toggleBounce(e.target);
-      });
-
-      function toggleBounce(marker) {
-        if (marker.getAnimation() !== null) {
-          marker.setAnimation(null);
-        } else {
-          marker.setAnimation(window.google.maps.Animation.BOUNCE);
-        } 
-      }*/
       markers.push(marker)
-    }) 
+    })
+    this.setState({onClickedVenue: this.venues
+    })
   }
   render() {
     return (
