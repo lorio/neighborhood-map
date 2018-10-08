@@ -20,17 +20,29 @@ class App extends Component {
       window.initMap = this.initMap;
   }
 
-  onClickedVenue = ((e, venue, id, toggleBounce) => {
+  onClickedVenue = ((e,itemMarker,id,marker, toggleBounce) => {
     const list = document.querySelector('.venues-list')
     const items = Array.from(list.children)
-    const item = { id:  id }
-    const marker = Object.assign({
-      id: id},  item);
-
+    const item = { id:  id, itemMarker: itemMarker }
+    /*const marker = new google*/
+    /*const itemMarker = Object.assign({
+      id: id, marker: marker},  item);*/
+    /*  markers.map(marker => {
+        if (e === item.id)*/
+         
+       /* return item.marker
+      })*/
+      /*window.google.maps.markers.find(item.marker)*/
       items.map(item => {
-        return /*console.log(e)*/marker
-      })
-      /*toggleBounce = window.google.maps.setAnimation*/
+        if (e === item.id)
+          /*markers.filter(marker => {*/
+            /*if (e === marker.id)*/ {
+     /*    markers.findIndex 
+        return console.log(console.log(item))*/
+        console.log(item.id)
+      window.google.maps.event.trigger(itemMarker, 'click')
+      }
+   })   /*toggleBounce = window.google.maps.marker.setAnimation*/
        /* marker.addListener('click', toggleBounce) */
         /*toggleBounce(marker)   */ 
    })
@@ -60,10 +72,11 @@ class App extends Component {
       center: {lat: 40.6971494, lng: -74.2598655}
     });
     var markers = []
+    var itemMarkers = []
     var infowindow = new window.google.maps.InfoWindow()
     this.state.venues.forEach((venue) => {
       var contentString = `${venue.name}`
-      var marker = new window.google.maps.Marker({
+      var itemMarker = new window.google.maps.Marker({
         position: {lat: venue.location.lat, 
           lng: venue.location.lng},
         id: venue.id,
@@ -71,27 +84,28 @@ class App extends Component {
         title: venue.name,
         animation: window.google.maps.Animation.DROP
       });
-      marker.addListener('click', function() {
-        map.setCenter(marker.position)
-        map.setZoom(15)
+      itemMarker.addListener('click', function() {
+        map.setCenter(itemMarker.position)
+        map.setZoom(10)
         infowindow.setContent(contentString)
-        infowindow.open(map, marker)
+        infowindow.open(map, itemMarker)
         toggleBounce(this)
       });
       function toggleBounce(marker) {
-        console.log(marker)
-        if (marker.getAnimation() !== null) {
+        console.log(itemMarker)
+        if (itemMarker.getAnimation() !== null) {
           marker.setAnimation(null);
         } else {
-          marker.setAnimation(window.google.maps.Animation.BOUNCE);
+          itemMarker.setAnimation(window.google.maps.Animation.BOUNCE);
           setTimeout (function(){
-            marker.setAnimation(null);
+            itemMarker.setAnimation(null);
           }, 1000);
         } 
       }
-      markers.push(marker)
+      /*markers.push(marker)*/
+      itemMarkers.push(itemMarkers)
     })
-    this.setState({onClickedVenue: this.venues
+    this.setState({markers: [...this.state.markers, itemMarkers]
     })
   }
   render() {
