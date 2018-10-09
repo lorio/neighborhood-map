@@ -19,25 +19,22 @@ class App extends Component {
     loadScript("https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyCaPkvbdf1BBoa6KSHQY3GWqcPGdEaa_TE&callback=initMap")
       window.initMap = this.initMap;
   }
-  getMarker = (markers) => {
-    for(var i = 0; i < markers.length; i++) {
-      console.log(markers[i])
-    }
-  }
-
-  onClickedVenue = ((e) => {
+ 
+  onClickedVenue = ((e, id, markers) => {
     const list = document.querySelector('.venues-list')
     const items = Array.from(list.children)
-    /*let marker = window.google.maps.marker
-    marker = Object.assign({
+  
+    let marker = Object.assign({
       id: id, marker: marker},  item);
     const item = { id:  id, marker: marker }
     let toggleBounce = window.google.maps.Animation.BOUNCE
-    markers.filter(marker => {
-      if (e === marker.id)
-        return console.log(item.marker)
-    })  */
-
+      
+    markers.forEach(marker => {
+      let id = marker.id
+      if(!id.includes(e)){
+        console.log('not my id')
+      }
+    })
      /* items.map(item => {
         if (e === item.id) {
         console.log(item.marker)
@@ -52,7 +49,7 @@ class App extends Component {
       client_id: "GLHT2IK1VEODEMEQP1CQPZ2KOYHH3EJKWMKBC0IFLRPWLXY5",
       client_secret: "LNQXGGOTY4JOOLIETW3CHG0SPJN3HBIVZYCE0AS54WFRG3FH",
       categoryId: "52e81612bcbc57f1066b79ed",
-      query: "",    
+      query: "indiana",    
       ll: "40.6,-74.2",
       v: "20182809"
     }
@@ -103,8 +100,7 @@ class App extends Component {
       }
       markers.push(marker)
     })
-    this.setState({markers: [...this.state.markers]
-    })
+    this.setState({markers})
   }
   render() {
     return (

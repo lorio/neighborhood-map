@@ -14,7 +14,7 @@ class ListSites extends Component {
       query: '',
       venues: this.props.venues,
       venue: this.props.venue,
-      markers: [],
+      markers: this.props.markers,
       marker: this.props.marker
     };
   }
@@ -42,7 +42,8 @@ class ListSites extends Component {
                 id={venue.id}
                 onClick={(e)=>this.props.onClickedVenue(
                   e.target.id,
-                  e.target.marker
+                  this.props.marker,
+                  this.props.markers
                   )}
                 >{venue.name}
                   </li>
