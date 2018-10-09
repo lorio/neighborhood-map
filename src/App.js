@@ -7,7 +7,6 @@ class App extends Component {
   state = {
     venues: [],
     markers: [],
-    itemMarkers: []
   }
   componentDidMount() {
     this.getVenues();
@@ -20,26 +19,31 @@ class App extends Component {
     loadScript("https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyCaPkvbdf1BBoa6KSHQY3GWqcPGdEaa_TE&callback=initMap")
       window.initMap = this.initMap;
   }
+  getMarker = (markers) => {
+    for(var i = 0; i < markers.length; i++) {
+      console.log(markers[i])
+    }
+  }
 
-  onClickedVenue = ((e, id, itemMarkers) => {
+  onClickedVenue = ((e) => {
     const list = document.querySelector('.venues-list')
     const items = Array.from(list.children)
-    let marker = window.google.maps.itemMarker
-    const itemMarker = Object.assign({
+    /*let marker = window.google.maps.marker
+    marker = Object.assign({
       id: id, marker: marker},  item);
-    const item = { id:  id, itemMarker: itemMarker }
+    const item = { id:  id, marker: marker }
     let toggleBounce = window.google.maps.Animation.BOUNCE
-    itemMarkers.filter(itemMarker => {
-      if (e === itemMarker.id)
-        console.log(item.itemMarker)
-    })  
+    markers.filter(marker => {
+      if (e === marker.id)
+        return console.log(item.marker)
+    })  */
 
-      items.map(item => {
+     /* items.map(item => {
         if (e === item.id) {
-        console.log(item.itemMarker)
-      window.google.maps.event.trigger(item.itemMarker, 'toggleBounce')
+        console.log(item.marker)
+      window.google.maps.event.trigger(item.marker, 'toggleBounce')
       }  
-   })   
+   })   */
      } )
  
    getVenues = (venues) => {
@@ -68,11 +72,10 @@ class App extends Component {
       center: {lat: 40.6971494, lng: -74.2598655}
     });
     var markers = []
-    var itemMarkers = []
     var infowindow = new window.google.maps.InfoWindow()
     this.state.venues.forEach((venue) => {
       var contentString = `${venue.name}`
-      var itemMarker = new window.google.maps.Marker({
+      var marker = new window.google.maps.Marker({
         position: {lat: venue.location.lat, 
           lng: venue.location.lng},
         id: venue.id,
@@ -80,28 +83,27 @@ class App extends Component {
         title: venue.name,
         animation: window.google.maps.Animation.DROP
       });
-      itemMarker.addListener('click', function() {
-        map.setCenter(itemMarker.position)
+      marker.addListener('click', function() {
+        map.setCenter(marker.position)
         map.setZoom(10)
         infowindow.setContent(contentString)
-        infowindow.open(map, itemMarker)
+        infowindow.open(map, marker)
         toggleBounce(this)
       });
       function toggleBounce(marker) {
-        console.log(itemMarker)
-        if (itemMarker.getAnimation() !== null) {
+        console.log(marker)
+        if (marker.getAnimation() !== null) {
           marker.setAnimation(null);
         } else {
-          itemMarker.setAnimation(window.google.maps.Animation.BOUNCE);
+          marker.setAnimation(window.google.maps.Animation.BOUNCE);
           setTimeout (function(){
-            itemMarker.setAnimation(null);
+            marker.setAnimation(null);
           }, 1000);
         } 
       }
-      /*markers.push(marker)*/
-      itemMarkers.push(itemMarkers)
+      markers.push(marker)
     })
-    this.setState({markers: [...this.state.markers, itemMarkers]
+    this.setState({markers: [...this.state.markers]
     })
   }
   render() {
@@ -121,7 +123,7 @@ class App extends Component {
             marker={this.state.marker}
             map={this.state.map}
             onClickedVenue={this.onClickedVenue}
-            itemMarker={this.state.itemMarker}
+            
           />
           <main className="main-content">
             <div id="map"></div>
