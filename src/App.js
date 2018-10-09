@@ -6,7 +6,8 @@ import ListSites from './ListSites';
 class App extends Component {
   state = {
     venues: [],
-    markers: []
+    markers: [],
+    itemMarkers: []
   }
   componentDidMount() {
     this.getVenues();
@@ -20,32 +21,27 @@ class App extends Component {
       window.initMap = this.initMap;
   }
 
-  onClickedVenue = ((e,itemMarker,id,marker, toggleBounce) => {
+  onClickedVenue = ((e, id, itemMarkers) => {
     const list = document.querySelector('.venues-list')
     const items = Array.from(list.children)
+    let marker = window.google.maps.itemMarker
+    const itemMarker = Object.assign({
+      id: id, marker: marker},  item);
     const item = { id:  id, itemMarker: itemMarker }
-    /*const marker = new google*/
-    /*const itemMarker = Object.assign({
-      id: id, marker: marker},  item);*/
-    /*  markers.map(marker => {
-        if (e === item.id)*/
-         
-       /* return item.marker
-      })*/
-      /*window.google.maps.markers.find(item.marker)*/
+    let toggleBounce = window.google.maps.Animation.BOUNCE
+    itemMarkers.filter(itemMarker => {
+      if (e === itemMarker.id)
+        console.log(item.itemMarker)
+    })  
+
       items.map(item => {
-        if (e === item.id)
-          /*markers.filter(marker => {*/
-            /*if (e === marker.id)*/ {
-     /*    markers.findIndex 
-        return console.log(console.log(item))*/
-        console.log(item.id)
-      window.google.maps.event.trigger(itemMarker, 'click')
-      }
-   })   /*toggleBounce = window.google.maps.marker.setAnimation*/
-       /* marker.addListener('click', toggleBounce) */
-        /*toggleBounce(marker)   */ 
-   })
+        if (e === item.id) {
+        console.log(item.itemMarker)
+      window.google.maps.event.trigger(item.itemMarker, 'toggleBounce')
+      }  
+   })   
+     } )
+ 
    getVenues = (venues) => {
     const endPoint = "https://api.foursquare.com/v2/venues/search?"
     let parameters = {
@@ -125,6 +121,7 @@ class App extends Component {
             marker={this.state.marker}
             map={this.state.map}
             onClickedVenue={this.onClickedVenue}
+            itemMarker={this.state.itemMarker}
           />
           <main className="main-content">
             <div id="map"></div>

@@ -16,12 +16,12 @@ class ListSites extends Component {
       venue: this.props.venue,
       markers: [],
       marker: this.props.marker,
-      
+      itemMarker: this.props.itemMarker
     };
   }
 
   render() {
-    const { venues, venue, markers } = this.props;
+    const { venues, venue, markers,itemMarker } = this.props;
     
     return (
       <div className="sidebar">     
@@ -42,7 +42,9 @@ class ListSites extends Component {
                 <li key={venue.id}
                 id={venue.id}
                 onClick={(e)=>this.props.onClickedVenue(
-                  e.target.id)}
+                  e.target.id,
+                  e.target.itemMarker
+                  )}
                 >{venue.name}
                   </li>
               ))                  
