@@ -27,13 +27,17 @@ class App extends Component {
     let marker = Object.assign({
       id: id, marker: marker},  item);
     const item = { id:  id, marker: marker }
-    let toggleBounce = window.google.maps.Animation.BOUNCE
+    /*let toggleBounce = window.google.maps.event.trigger(marker.Animation.BOUNCE)*/
       
     markers.forEach(marker => {
       let id = marker.id
-      if(!id.includes(e)){
-        console.log('not my id')
-      }
+      
+      if(e.match(id)) {
+        marker.setAnimation(window.google.maps.Animation.BOUNCE); 
+        setTimeout (function(){
+              marker.setAnimation(null);
+            }, 1000);
+        }
     })
      /* items.map(item => {
         if (e === item.id) {
