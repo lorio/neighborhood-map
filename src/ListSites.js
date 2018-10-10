@@ -15,7 +15,8 @@ class ListSites extends Component {
       venues: this.props.venues,
       venue: this.props.venue,
       markers: this.props.markers,
-      marker: this.props.marker
+      marker: this.props.marker,
+      showMenu: true
     };
   }
 
@@ -23,6 +24,8 @@ class ListSites extends Component {
     const { venues, venue, markers } = this.props;
     
     return (
+      <div>
+        {this.props.showMenu &&
       <div className="sidebar">     
         <div className="search-venues-bar">
           <div className="search-venues-input-wrapper">
@@ -50,7 +53,9 @@ class ListSites extends Component {
               ))                  
             }
           </ul>
-         </div>   
+         </div>
+         }
+        </div>   
       )
   }
 }

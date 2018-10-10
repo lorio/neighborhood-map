@@ -7,12 +7,16 @@ class App extends Component {
   state = {
     venues: [],
     markers: [],
+    showMenu: true
   }
   componentDidMount() {
     this.getVenues();
   }
   clearMarkers = () => {
     this.setState({ markers: []})
+  }
+  toggleMenu = () => {
+    this.setState({ showMenu: !this.state.showMenu })
   }
 
   loadMap = () => {
@@ -26,8 +30,7 @@ class App extends Component {
   
     let marker = Object.assign({
       id: id, marker: marker},  item);
-    const item = { id:  id, marker: marker }
-    /*let toggleBounce = window.google.maps.event.trigger(marker.Animation.BOUNCE)*/
+    const item = { id: id, marker: marker }
       
     markers.forEach(marker => {
       let id = marker.id
@@ -39,13 +42,7 @@ class App extends Component {
             }, 1000);
         }
     })
-     /* items.map(item => {
-        if (e === item.id) {
-        console.log(item.marker)
-      window.google.maps.event.trigger(item.marker, 'toggleBounce')
-      }  
-   })   */
-     } )
+  })
  
    getVenues = (venues) => {
     const endPoint = "https://api.foursquare.com/v2/venues/search?"
@@ -111,19 +108,25 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <nav>
+          <button id="menu" 
+            onClick={this.toggleMenu}>
+            <svg xmlns="http://www.w3.org/2000/svg" height="32" width="32" viewBox="0 0 20 20">
+              <path d="M2 6h20v3H2zm0 5h20v3H2zm0 5h20v3H2z"/>
+            </svg>
+          </button>
           <h1 className="App-title">NYC Outdoor Sculptures</h1>
           </nav>
         </header>
         <div className="container">
-          <ListSites 
+          <ListSites
+            showMenu={this.state.showMenu} 
             venues={this.state.venues}
             getVenues={this.getVenues}
             venue={this.state.venue}
             markers={this.state.markers}
             marker={this.state.marker}
             map={this.state.map}
-            onClickedVenue={this.onClickedVenue}
-            
+            onClickedVenue={this.onClickedVenue}      
           />
           <main className="main-content">
             <div id="map"></div>

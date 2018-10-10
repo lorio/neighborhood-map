@@ -32,10 +32,15 @@ html, body, .sidebar, .root {
 .App-title {
   font-size: 1.5em;
 }
-
-.App-intro {
-  font-size: large;
+#menu {
+  position: absolute;
+  top: 8px;
+  left: 10px;
+  padding-top: 0px;
+  padding-left:3px;
+  border-radius: 2px;
 }
+
 .container {
   display: flex;
   flex: 2;
