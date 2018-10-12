@@ -22,13 +22,11 @@ class App extends Component {
   }
   handleInputChange = (input) => {
     let searchResults = input !== "" 
-      ? this.state.venues.filter(venue => {
-        if (venue.name.includes(input)) {
-          return venue;
-        }
-      })
+      ? this.state.venues.filter(venue => 
+        venue.name.includes(input))
       : this.state.venues;
-     this.setState({ searchResults: input, searchResults})
+      console.log("filtered venues: ", searchResults);
+     this.setState({ searchResults })
   }
  
 
