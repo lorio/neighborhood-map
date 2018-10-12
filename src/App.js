@@ -7,7 +7,9 @@ class App extends Component {
   state = {
     venues: [],
     markers: [],
-    showMenu: true
+    showMenu: true,
+    searchResults: []
+   
   }
   componentDidMount() {
     this.getVenues();
@@ -18,6 +20,17 @@ class App extends Component {
   toggleMenu = () => {
     this.setState({ showMenu: !this.state.showMenu })
   }
+  handleInputChange = (input) => {
+    let searchResults = input !== "" 
+      ? this.state.venues.filter(venue => {
+        if (venue.name.includes(input)) {
+          return venue;
+        }
+      })
+      : this.state.venues;
+     this.setState({ searchResults: input, searchResults})
+  }
+ 
 
   loadMap = () => {
     loadScript("https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyCaPkvbdf1BBoa6KSHQY3GWqcPGdEaa_TE&callback=initMap")
@@ -50,18 +63,19 @@ class App extends Component {
       client_id: "GLHT2IK1VEODEMEQP1CQPZ2KOYHH3EJKWMKBC0IFLRPWLXY5",
       client_secret: "LNQXGGOTY4JOOLIETW3CHG0SPJN3HBIVZYCE0AS54WFRG3FH",
       categoryId: "52e81612bcbc57f1066b79ed",
-      query: "indiana",    
+      query: "",    
       ll: "40.6,-74.2",
       v: "20182809"
     }
     axios.get(endPoint + new URLSearchParams(parameters))
       .then(response => {
         this.setState({
-          venues: response.data.response.venues    
+          venues: response.data.response.venues,
+          searchResults: response.data.response.venues   
         }, this.loadMap())
       })
     .catch(error => {
-      console.log("Error!" + error)
+      console.log("Error loading data!" + error)
     })
   }
   initMap = () => {
@@ -126,7 +140,9 @@ class App extends Component {
             markers={this.state.markers}
             marker={this.state.marker}
             map={this.state.map}
-            onClickedVenue={this.onClickedVenue}      
+            onClickedVenue={this.onClickedVenue}
+            handleInputChange={this.handleInputChange}
+            query={this.state.query}      
           />
           <main className="main-content">
             <div id="map"></div>

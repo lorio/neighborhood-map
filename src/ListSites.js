@@ -10,18 +10,25 @@ class ListSites extends Component {
   }
   constructor(props) {
     super(props);
+      this.search = React.createRef();
+      this.focusQuery = this.focusQuery.bind(this);
     this.state = {
       query: '',
+      searchResults: this.props.searchResults,
       venues: this.props.venues,
       venue: this.props.venue,
       markers: this.props.markers,
       marker: this.props.marker,
-      showMenu: true
+      showMenu: true,
+      handleInputChange: this.props.handleInputChange
     };
+  }
+  focusQuery() {
+    this.search.current.focus();
   }
 
   render() {
-    const { venues, venue, markers } = this.props;
+    const { venues, venue, markers,searchResults } = this.props;
     
     return (
       <div>
@@ -32,9 +39,8 @@ class ListSites extends Component {
             <input 
               type="text" 
               placeholder="Find a Sculpture"
-              value={this.state.query}
-              onChange={event => this.setState({
-                query: event.target.value})}
+              ref={input => this.search = input}
+              onChange={this.handleInputChange}
             />
             </div>
           </div>
