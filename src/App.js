@@ -26,7 +26,8 @@ class App extends Component {
         venue.name.includes(input))
       : this.state.venues;
       console.log("filtered venues: ", searchResults);
-     this.setState({ searchResults })
+     /*this.setState({ venues: searchResults })*/
+     this.setState({ venues: searchResults })   
   }
  
 
@@ -140,7 +141,8 @@ class App extends Component {
             map={this.state.map}
             onClickedVenue={this.onClickedVenue}
             handleInputChange={this.handleInputChange}
-            query={this.state.query}      
+            query={this.state.query}
+            input={this.state.input}      
           />
           <main className="main-content">
             <div id="map"></div>

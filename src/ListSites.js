@@ -20,7 +20,8 @@ class ListSites extends Component {
       markers: this.props.markers,
       marker: this.props.marker,
       showMenu: true,
-      handleInputChange: this.props.handleInputChange
+      handleInputChange: this.props.handleInputChange,
+      input: this.props.input
     };
   }
   focusQuery() {
@@ -28,7 +29,7 @@ class ListSites extends Component {
   }
 
   render() {
-    const { venues, venue, markers,searchResults } = this.props;
+    const { venues, venue, markers,searchResults, input } = this.props;
     
     return (
       <div>
@@ -47,7 +48,8 @@ class ListSites extends Component {
           </div>
           <ul className="venues-list">
             {
-             venues.map(venue => (
+              input ? searchResults.venues :
+              venues.map(venue => (
                 <li key={venue.id}
                 id={venue.id}
                 onClick={(e)=>this.props.onClickedVenue(
