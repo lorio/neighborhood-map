@@ -21,13 +21,20 @@ class App extends Component {
     this.setState({ showMenu: !this.state.showMenu })
   }
   handleInputChange = (input) => {
-    let searchResults = input !== "" 
-      ? this.state.venues.filter(venue => 
-        venue.name.includes(input))
+    let searchResults = input.toLowerCase() !== ""
+      ? this.state.venues.filter(venue =>
+        venue.name.toLowerCase().includes(input))
       : this.state.venues;
       console.log("filtered venues: ", searchResults);
      /*this.setState({ venues: searchResults })*/
      this.setState({ venues: searchResults })   
+  }
+  clearSearch = (input, venues) => {
+    input === ""
+    ? console.log(input)
+    /*this.state.venues.getVenues()*/
+    : this.setState({ venues: venues })
+    
   }
  
 
