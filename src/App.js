@@ -20,21 +20,30 @@ class App extends Component {
   toggleMenu = () => {
     this.setState({ showMenu: !this.state.showMenu })
   }
-  handleInputChange = (input) => {
+
+  handleInputChange = (input,venues, id, markers) => {
     let searchResults = input.toLowerCase() !== ""
-      ? this.state.venues.filter(venue =>
+      ? this.state.venues.filter(venue => venue.id &&
         venue.name.toLowerCase().includes(input))
-      : this.state.venues;
-      console.log("filtered venues: ", searchResults);
-     /*this.setState({ venues: searchResults })*/
-     this.setState({ venues: searchResults })   
+      : this.state.venues; 
+     /* let markers;
+        this.state.markers.map(marker => 
+        marker.name.toLowerCase().filter(marker.name.includes(input))
+        let id = marker.id
+        let venueId = this.venue.id
+        this.state.markers
+        ? marker.setVisible(true) 
+        : this.state.markers;
+          marker.setVisible(false)*/
+           
+      this.setState({ venues: searchResults, markers: markers })
   }
+
   clearSearch = (input, venues) => {
     input === ""
     ? console.log(input)
     /*this.state.venues.getVenues()*/
-    : this.setState({ venues: venues })
-    
+    : this.setState({ venues: venues })  
   }
  
 
@@ -42,6 +51,7 @@ class App extends Component {
     loadScript("https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyCaPkvbdf1BBoa6KSHQY3GWqcPGdEaa_TE&callback=initMap")
       window.initMap = this.initMap;
   }
+
  
   onClickedVenue = ((e, id, markers) => {
     const list = document.querySelector('.venues-list')
@@ -62,6 +72,7 @@ class App extends Component {
         }
     })
   })
+  
  
    getVenues = (venues) => {
     const endPoint = "https://api.foursquare.com/v2/venues/search?"
@@ -169,6 +180,7 @@ class App extends Component {
     script.async = true
     script.defer = true
     index.parentNode.insertBefore(script, index)
+    script.onerror = function() { alert("Error loading the map! Check URL!"); };
   }
 
 export default App;
