@@ -20,19 +20,13 @@ class App extends Component {
   toggleMenu = () => {
     this.setState({ showMenu: !this.state.showMenu })
   }
-  updateMarkers = (input) => {
+  updateMarkers = (venue) => {
     let map = this.props.map
-    let markers = this.state.markers
-    console.log(this.props.map)
-    /*markers.forEach(marker => {
-      
-      if(!venue.id match(marker.id)){  
-        marker.setVisible(false)
-      }
-      else {
-        marker.setVisible(true)
-      }
-    })*/
+    let marker = this.props.markers.filter(marker => {
+     marker.id === venue.id
+     ? marker.setVisible = true 
+     : marker.setVisible = false
+    })
   }
 
   handleInputChange = (input,venues, id) => {
