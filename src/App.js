@@ -60,19 +60,19 @@ class App extends Component {
   onClickedVenue = ((e, id, markers) => {
     const list = document.querySelector('.venues-list')
     const items = Array.from(list.children)
-  
+    
     let marker = Object.assign({
-      id: id, marker: marker},  item);
+      id: id, marker: marker },  item);
     const item = { id: id, marker: marker }
       
     markers.forEach(marker => {
       let id = marker.id
-      
       if(e.match(id)) {
         marker.setAnimation(window.google.maps.Animation.BOUNCE); 
         setTimeout (function(){
               marker.setAnimation(null);
             }, 1000);
+
         }
     })
   })
