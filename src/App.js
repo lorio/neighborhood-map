@@ -20,23 +20,27 @@ class App extends Component {
   toggleMenu = () => {
     this.setState({ showMenu: !this.state.showMenu })
   }
+  updateMarkers = (input) => {
+    let map = this.props.map
+    let markers = this.state.markers
+    console.log(this.props.map)
+    /*markers.forEach(marker => {
+      
+      if(!venue.id match(marker.id)){  
+        marker.setVisible(false)
+      }
+      else {
+        marker.setVisible(true)
+      }
+    })*/
+  }
 
-  handleInputChange = (input,venues, id, markers) => {
+  handleInputChange = (input,venues, id) => {
     let searchResults = input.toLowerCase() !== ""
       ? this.state.venues.filter(venue => venue.id &&
         venue.name.toLowerCase().includes(input))
       : this.state.venues; 
-     /* let markers;
-        this.state.markers.map(marker => 
-        marker.name.toLowerCase().filter(marker.name.includes(input))
-        let id = marker.id
-        let venueId = this.venue.id
-        this.state.markers
-        ? marker.setVisible(true) 
-        : this.state.markers;
-          marker.setVisible(false)*/
-           
-      this.setState({ venues: searchResults, markers: markers })
+      this.setState({ venues: searchResults })
   }
 
   clearSearch = (input, venues) => {
