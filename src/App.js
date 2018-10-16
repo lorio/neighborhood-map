@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import './App.css';
 import ListSites from './ListSites';
+import debounce from 'lodash.debounce';
 
 class App extends Component {
   state = {
@@ -36,6 +37,7 @@ class App extends Component {
       : this.state.venues; 
       this.setState({ venues: searchResults })
   }
+  handleInputChangeDebounced = debounce(this.handleInputChange, 1000)
 
   clearSearch = (input, venues) => {
     input === ""
@@ -58,7 +60,7 @@ class App extends Component {
     let marker = Object.assign({
       id: id, marker: marker },  item);
     const item = { id: id, marker: marker }
-      
+
     markers.forEach(marker => {
       let id = marker.id
       if(e.match(id)) {
@@ -66,7 +68,9 @@ class App extends Component {
         setTimeout (function(){
               marker.setAnimation(null);
             }, 1000);
-
+        let contentString =  `${marker.title}` 
+        this.state.infowindow.open(this.state.map, marker)
+        this.state.infowindow.setContent(contentString)
         }
     })
   })
@@ -100,6 +104,7 @@ class App extends Component {
     });
     var markers = []
     var infowindow = new window.google.maps.InfoWindow()
+    this.setState({ map: map, infowindow: infowindow });
     this.state.venues.forEach((venue) => {
       var contentString = `${venue.name}`
       var marker = new window.google.maps.Marker({
@@ -130,7 +135,7 @@ class App extends Component {
       }
       markers.push(marker)
     })
-    this.setState({markers})
+    this.setState({ markers })
   }
   render() {
     return (

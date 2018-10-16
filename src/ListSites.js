@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import debounce from 'lodash.debounce';
 import './App.css';
 
 class ListSites extends Component {
@@ -21,7 +22,10 @@ class ListSites extends Component {
       marker: this.props.marker,
       showMenu: true,
       handleInputChange: this.props.handleInputChange,
-      input: this.props.input
+      input: this.props.input,
+      map: this.props.map,
+      infowindows: this.props.infowindows,
+      infowindow: this.props.infowindow
     };
   }
   focusQuery() {
