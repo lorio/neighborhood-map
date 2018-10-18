@@ -20,24 +20,16 @@ class App extends Component {
   componentDidMount() {
     this.getVenues();
   }
-  clearMarkers = () => {
-    this.setState({ markers: []})
-  }
+
+  //opens and closes sidebar with hamburger menu button for map visibility
   toggleMenu = () => {
     this.setState({ showMenu: !this.state.showMenu })
   }
- /* updateMarkers = (venue) => {
-    let map = this.props.map
-    let marker = this.props.markers.filter(marker => {
-     marker.id === venue.id
-     ? marker.setVisible = true 
-     : marker.setVisible = false
-    })
-  }*/
+  //sets unqueried venues markers to hidden
   hideMarkers = (anArray, aBoolean) => {
       return anArray.forEach(marker => marker.setVisible(aBoolean))
   }
-
+//when user inputs search text, matching sidebar item(s), markers filter
   handleInputChange = (query ,venues) => {
     this.setState({ query })
     let searchResults
@@ -60,12 +52,12 @@ class App extends Component {
     }
   }
   handleInputChangeDebounced = debounce(this.handleInputChange, 1000)
-
+//loads the script which is outside the root element
   loadMap = () => {
     loadScript("https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyCaPkvbdf1BBoa6KSHQY3GWqcPGdEaa_TE&callback=initMap")
       window.initMap = this.initMap;
   }
-
+//when the sidebar items are clicked, selected map marker is isolated
   onClickedVenue = ((e, id, markers) => {
     const list = document.querySelector('.venues-list')
     const items = Array.from(list.children)
@@ -87,7 +79,7 @@ class App extends Component {
         }
     })
   })
-  
+  //foursquare and map fetching
    getVenues = (venues) => {
     const endPoint = "https://api.foursquare.com/v2/venues/search?"
     let parameters = {
@@ -98,6 +90,7 @@ class App extends Component {
       ll: "40.6,-74.2",
       v: "20182809"
     }
+    //axios to fetch data
     axios.get(endPoint + new URLSearchParams(parameters))
       .then(response => {
         this.setState({
@@ -110,6 +103,7 @@ class App extends Component {
       alert("Error loading data!" + error)
     })
   }
+  //google map code
   initMap = () => {
     var map = new window.google.maps.Map(document.getElementById('map'), {
       zoom: 12,
@@ -180,7 +174,7 @@ class App extends Component {
             input={this.state.input}      
           />
           <main className="main-content">
-            <div id="map" role="application" tabindex="-1" area-label="Map of sculpture locations"></div>
+            <div id="map" role="application" tabIndex="-1" area-label="Map of sculpture locations"></div>
           </main>
         </div>
         <footer className="site-footer">

@@ -3,7 +3,7 @@
 ## Overview
 This is my final project of the Grow With Google and Udacity Front End Nanodegree course. It fetches the locations of 30 permanant outdoor sculptures, statues, and monuments in the New York City area that Foursquare users logged to their database.
 ## Instructions
-The application is in development mode. To run it, clone or fork, npm install, and npm start. Clicking on the scrollable sidebar list will pull up one venue at a time on the map which user can zoom in for a more detailed look at its location. User can also input search for a sculpture and pull up its location on the map.
+The application is in development mode. To run it, clone or fork, npm install, and npm start. Clicking on the scrollable sidebar list will pull up one venue at a time on the map which user can zoom in for a more detailed look at its location. User can also input search for a sculpture and pull up its location on the map. The list shows all venues again when all the search input is removed.
 ## Dependencies
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 npm axios aided in fetching the data

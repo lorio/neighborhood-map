@@ -5,7 +5,6 @@ import './App.css';
 class ListSites extends Component {
   static propTypes = {
     venues: PropTypes.array.isRequired,
-    venue: PropTypes.object.isRequired,
     getVenues: PropTypes.func.isRequired
   }
   constructor(props) {
@@ -27,13 +26,12 @@ class ListSites extends Component {
       infowindow: this.props.infowindow
     };
   }
+  //for accessibility of the search
   focusQuery() {
     this.query.current.focus();
   }
-
   render() {
-    const { venues, venue, searchResults, input } = this.props;
-    
+    const { venues, venue, searchResults, input } = this.props;   
     return (
       <div>
         {this.props.showMenu &&
@@ -58,7 +56,7 @@ class ListSites extends Component {
               venues.map(venue => (
                 <li key={venue.id}
                 role="menuitem"
-                tabindex="0"
+                tabIndex="0"
                 aria-label={venue.name}
                 id={venue.id}
                 onClick={(e)=>this.props.onClickedVenue(
