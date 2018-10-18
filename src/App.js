@@ -12,7 +12,9 @@ class App extends Component {
     showMenu: true,
     searchResults: [],
     query: '',
-    map: null
+    map: null,
+    items: [],
+    allVenues: []
    
   }
   componentDidMount() {
@@ -24,14 +26,14 @@ class App extends Component {
   toggleMenu = () => {
     this.setState({ showMenu: !this.state.showMenu })
   }
-  updateMarkers = (venue) => {
+ /* updateMarkers = (venue) => {
     let map = this.props.map
     let marker = this.props.markers.filter(marker => {
      marker.id === venue.id
      ? marker.setVisible = true 
      : marker.setVisible = false
     })
-  }
+  }*/
   hideMarkers = (anArray, aBoolean) => {
       return anArray.forEach(marker => marker.setVisible(aBoolean))
   }
@@ -53,31 +55,17 @@ class App extends Component {
       this.hideMarkers(hiddenMarkers, false)
       this.setState({ hiddenMarkers })
     } else {
-      this.setState({ venues: this.state.venues })
+      this.setState({ venues: this.state.allVenues })
       this.hideMarkers(this.state.markers, true)
     }
-    /*let searchResults = input.toLowerCase() !== ""
-      ? this.state.venues.filter(venue => venue.id &&
-        venue.name.toLowerCase().includes(input))
-      : this.state.venues; 
-      this.setState({ venues: searchResults })*/
   }
   handleInputChangeDebounced = debounce(this.handleInputChange, 1000)
-
-  /*clearSearch = (input, venues) => {
-    input === ""
-    ? console.log(input)
-    /*this.state.venues.getVenues()*/
-   /* : this.setState({ venues: venues }) */ 
-  /*}*/
- 
 
   loadMap = () => {
     loadScript("https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyCaPkvbdf1BBoa6KSHQY3GWqcPGdEaa_TE&callback=initMap")
       window.initMap = this.initMap;
   }
 
- 
   onClickedVenue = ((e, id, markers) => {
     const list = document.querySelector('.venues-list')
     const items = Array.from(list.children)
@@ -100,7 +88,6 @@ class App extends Component {
     })
   })
   
- 
    getVenues = (venues) => {
     const endPoint = "https://api.foursquare.com/v2/venues/search?"
     let parameters = {
@@ -115,7 +102,8 @@ class App extends Component {
       .then(response => {
         this.setState({
           venues: response.data.response.venues,
-          searchResults: response.data.response.venues   
+          searchResults: response.data.response.venues,
+          allVenues: response.data.response.venues  
         }, this.loadMap())
       })
     .catch(error => {

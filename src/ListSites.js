@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import debounce from 'lodash.debounce';
 import './App.css';
 
 class ListSites extends Component {
@@ -29,11 +28,11 @@ class ListSites extends Component {
     };
   }
   focusQuery() {
-    this.search.current.focus();
+    this.query.current.focus();
   }
 
   render() {
-    const { venues, venue, markers,searchResults, input } = this.props;
+    const { venues, venue, searchResults, input } = this.props;
     
     return (
       <div>
@@ -52,7 +51,7 @@ class ListSites extends Component {
           </div>
           <ul className="venues-list">
             {
-              input ? searchResults.venues :
+              input ? searchResults :
               venues.map(venue => (
                 <li key={venue.id}
                 id={venue.id}
