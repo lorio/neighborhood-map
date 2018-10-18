@@ -3,13 +3,16 @@ import axios from 'axios';
 import './App.css';
 import ListSites from './ListSites';
 import debounce from 'lodash.debounce';
+import escapeRegExp from 'escape-string-regexp';
 
 class App extends Component {
   state = {
     venues: [],
     markers: [],
     showMenu: true,
-    searchResults: []
+    searchResults: [],
+    query: '',
+    map: null
    
   }
   componentDidMount() {
@@ -29,22 +32,44 @@ class App extends Component {
      : marker.setVisible = false
     })
   }
+  hideMarkers = (anArray, aBoolean) => {
+      return anArray.forEach(marker => marker.setVisible(aBoolean))
+  }
 
-  handleInputChange = (input,venues, id) => {
-    let searchResults = input.toLowerCase() !== ""
+  handleInputChange = (query ,venues) => {
+    this.setState({ query })
+    let searchResults
+    let hiddenMarkers
+    this.state.markers.map(marker => marker.setVisible(true))
+    if (query) {
+      const match = new RegExp(escapeRegExp(query), "i")
+      searchResults = this.state.venues.filter(venue =>
+        match.test(venue.name)
+      )
+      this.setState({ venues: searchResults })
+      hiddenMarkers = this.state.markers.filter(marker =>
+        searchResults.every(venue => venue.name !== marker.title)
+      )
+      this.hideMarkers(hiddenMarkers, false)
+      this.setState({ hiddenMarkers })
+    } else {
+      this.setState({ venues: this.state.venues })
+      this.hideMarkers(this.state.markers, true)
+    }
+    /*let searchResults = input.toLowerCase() !== ""
       ? this.state.venues.filter(venue => venue.id &&
         venue.name.toLowerCase().includes(input))
       : this.state.venues; 
-      this.setState({ venues: searchResults })
+      this.setState({ venues: searchResults })*/
   }
   handleInputChangeDebounced = debounce(this.handleInputChange, 1000)
 
-  clearSearch = (input, venues) => {
+  /*clearSearch = (input, venues) => {
     input === ""
     ? console.log(input)
     /*this.state.venues.getVenues()*/
-    : this.setState({ venues: venues })  
-  }
+   /* : this.setState({ venues: venues }) */ 
+  /*}*/
  
 
   loadMap = () => {
