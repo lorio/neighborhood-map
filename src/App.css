@@ -121,5 +121,11 @@ ul.venues-list {
   padding-top:15px;
   font-size: 12px;
 }
+@media (max-width: 425px) {
+  .App-header {
+    font-size: 80%;
+    padding-left: 35px;
+  }
+}
 
 

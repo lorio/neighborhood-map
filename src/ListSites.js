@@ -43,17 +43,23 @@ class ListSites extends Component {
             <input 
               type="text" 
               placeholder="Find a Sculpture"
-              ref={input => this.query = input}
+              labelledby="placeholder"
+              ref={input => this.search = input}
               onChange={e=> this.state.handleInputChange(
-                e.target.value)}
+                e.target.value,
+                this.focusQuery
+                )}
             />
             </div>
           </div>
-          <ul className="venues-list">
+          <ul className="venues-list" aria-label="List of sculptures">
             {
               input ? searchResults :
               venues.map(venue => (
                 <li key={venue.id}
+                role="menuitem"
+                tabindex="0"
+                aria-label={venue.name}
                 id={venue.id}
                 onClick={(e)=>this.props.onClickedVenue(
                   e.target.id,

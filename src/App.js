@@ -107,13 +107,13 @@ class App extends Component {
         }, this.loadMap())
       })
     .catch(error => {
-      console.log("Error loading data!" + error)
+      alert("Error loading data!" + error)
     })
   }
   initMap = () => {
     var map = new window.google.maps.Map(document.getElementById('map'), {
-      zoom: 10,
-      center: {lat: 40.6971494, lng: -74.2598655}
+      zoom: 12,
+      center: {lat: 40.7454474, lng: -73.9711897}
     });
     var markers = []
     var infowindow = new window.google.maps.InfoWindow()
@@ -130,7 +130,6 @@ class App extends Component {
       });
       marker.addListener('click', function() {
         map.setCenter(marker.position)
-        map.setZoom(10)
         infowindow.setContent(contentString)
         infowindow.open(map, marker)
         toggleBounce(this)
@@ -155,7 +154,9 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <nav>
-          <button id="menu" 
+          <button id="menu"
+            aria-label="hide sidebar"
+            aria-expanded="true" 
             onClick={this.toggleMenu}>
             <svg xmlns="http://www.w3.org/2000/svg" height="32" width="32" viewBox="0 0 20 20">
               <path d="M2 6h20v3H2zm0 5h20v3H2zm0 5h20v3H2z"/>
@@ -179,7 +180,7 @@ class App extends Component {
             input={this.state.input}      
           />
           <main className="main-content">
-            <div id="map"></div>
+            <div id="map" role="application" tabindex="-1" area-label="Map of sculpture locations"></div>
           </main>
         </div>
         <footer className="site-footer">
@@ -196,7 +197,7 @@ class App extends Component {
     script.async = true
     script.defer = true
     index.parentNode.insertBefore(script, index)
-    script.onerror = function() { alert("Error loading the map! Check URL!"); };
+    script.onerror = function() { alert("Error loading the map!"); };
   }
 
 export default App;
