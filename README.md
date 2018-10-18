@@ -11,7 +11,7 @@ npm packages escape-string-regexp and lodash.debounce helped the search function
 ## Contributing
 I welcome pull requests 
 ## Thanks
-Udacity coaches and students, especially drunkenkismet and vasudeva
+Udacity coaches and students, especially drunkenkismet, vasudeva, Doug Brown
 I got started with https://www.youtube.com/channel/UCcWSbBe_s-T_gZRnqFbtyIA
 https://stackoverflow.com/questions/47032248/how-to-make-clicking-a-menu-button-toggle-show-hide-of-a-menu-sidebar-component
 focusable search found on https://dev.to/sage911/how-to-write-a-search-component-with-suggestions-in-react-d20
