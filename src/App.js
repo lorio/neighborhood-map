@@ -75,7 +75,7 @@ class App extends Component {
         setTimeout (function(){
               marker.setAnimation(null);
             }, 1000);
-        let contentString =  `${marker.title}` 
+        let contentString =  `${marker.title} at ${marker.position}` 
         this.state.infowindow.open(this.state.map, marker)
         this.state.infowindow.setContent(contentString)
         }
