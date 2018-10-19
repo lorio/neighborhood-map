@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import './App.css';
 import ListSites from './ListSites';
-import debounce from 'lodash.debounce';
 import escapeRegExp from 'escape-string-regexp';
 
 class App extends Component {
@@ -31,13 +30,16 @@ class App extends Component {
   }
 //when user inputs search text, matching sidebar item(s), markers filter
   handleInputChange = (query ,venues) => {
-    this.setState({ query })
+    let trimmedQuery = query.replace(/^\s+/, '')
+      this.setState({
+        query: trimmedQuery
+      })
     let searchResults
     let hiddenMarkers
     this.state.markers.map(marker => marker.setVisible(true))
     if (query) {
       const match = new RegExp(escapeRegExp(query), "i")
-      searchResults = this.state.venues.filter(venue =>
+      searchResults = this.state.allVenues.filter(venue =>
         match.test(venue.name)
       )
       this.setState({ venues: searchResults })
@@ -51,7 +53,7 @@ class App extends Component {
       this.hideMarkers(this.state.markers, true)
     }
   }
-  handleInputChangeDebounced = debounce(this.handleInputChange, 1000)
+
 //loads the script which is outside the root element
   loadMap = () => {
     loadScript("https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyCaPkvbdf1BBoa6KSHQY3GWqcPGdEaa_TE&callback=initMap")
