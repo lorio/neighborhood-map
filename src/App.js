@@ -54,7 +54,7 @@ class App extends Component {
     }
   }
 
-//loads the script which is outside the root element
+//loads the script which is outside the root element. Error handling on lines 193-196 is tested and functioning.
   loadMap = () => {
     loadScript("https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyCaPkvbdf1BBoa6KSHQY3GWqcPGdEaa_TE&callback=initMap")
       window.initMap = this.initMap;

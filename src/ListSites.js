@@ -42,6 +42,7 @@ class ListSites extends Component {
               type="text" 
               placeholder="Find a Sculpture"
               labelledby="placeholder"
+              role="search"
               ref={input => this.search = input}
               onChange={e=> this.state.handleInputChange(
                 e.target.value,
