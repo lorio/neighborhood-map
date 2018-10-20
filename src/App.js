@@ -193,7 +193,7 @@ class App extends Component {
     script.async = true
     script.defer = true
     index.parentNode.insertBefore(script, index)
-    script.onerror = function() { alert("Error loading the map!"); };
+    script.onerror = function() { alert("Error loading the map! Please check the URL and network connection."); };
   }
 
 export default App;
