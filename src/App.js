@@ -56,7 +56,7 @@ class App extends Component {
 
 //loads the script which is outside the root element. Error handling on lines 193-196 is tested and functioning.
   loadMap = () => {
-    loadScript("https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyCaPkvbdf1BBoa6KSHQY3GWqcPGdEaa_TE&callback=initMap")
+    loadScript("https://maps.googleapis.com/maps/api/js?v=3&key=xxxxxxx")
       window.initMap = this.initMap;
   }
 //when the sidebar items are clicked, selected map marker is isolated
@@ -86,7 +86,7 @@ class App extends Component {
     const endPoint = "https://api.foursquare.com/v2/venues/search?"
     let parameters = {
       client_id: "GLHT2IK1VEODEMEQP1CQPZ2KOYHH3EJKWMKBC0IFLRPWLXY5",
-      client_secret: "LNQXGGOTY4JOOLIETW3CHG0SPJN3HBIVZYCE0AS54WFRG3FH",
+      client_secret: "xxxxxxxxxx",
       categoryId: "52e81612bcbc57f1066b79ed",
       query: "",    
       ll: "40.6,-74.2",
