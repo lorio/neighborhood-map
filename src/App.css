@@ -1,5 +1,4 @@
 .App {
-  text-align: center;
   display: flex;
   flex-flow: column wrap;
   height: 100vh;
@@ -24,6 +23,7 @@ html, body, .sidebar, .root {
   /*height: 60px;*/
   color: white;
   margin-top: -30px;
+  text-align: center;
 }
 .App-header h1 {
   padding-top:25px;
@@ -44,6 +44,7 @@ html, body, .sidebar, .root {
 .container {
   display: flex;
   flex: 2;
+  flex-basis: 100vh;
 }
 .main-content {
   flex: 1 0 auto;
@@ -120,6 +121,7 @@ ul.venues-list {
   align-items: center;
   padding-top:15px;
   font-size: 12px;
+  text-align: center;
 }
 @media (max-width: 425px) {
   .App-header {
